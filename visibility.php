@@ -5,8 +5,10 @@ class Produk
   // PROPERTY 
   public $judul,
     $penulis,
-    $penerbit,
-    $harga;
+    $penerbit;
+  protected $diskon = 0;
+  // protected $harga;
+  private $harga;
 
 
 
@@ -20,6 +22,14 @@ class Produk
     $this->penulis = $penulis;
     $this->penerbit = $penerbit;
     $this->harga = $harga;
+  }
+  // public function setDiskon($diskon)
+  // {
+  //   $this->diskon = $diskon;
+  // }
+  public function getHarga()
+  {
+    return $this->harga - ($this->harga * $this->diskon / 100);
   }
   // METHOD
   public function getLabel()
@@ -66,6 +76,14 @@ class Game extends Produk
     parent::__construct($judul, $penulis, $penerbit, $harga, $waktuMain);
     $this->waktuMain = $waktuMain;
   }
+  public function setDiskon($diskon)
+  {
+    $this->diskon = $diskon;
+  }
+  // public function getHarga()
+  // {
+  //   return $this->harga;
+  // }
   public function getInfoProduk()
   {
     $str = "Game:" . parent::getInfoProduk() . "| {$this->waktuMain}Jam";
@@ -93,3 +111,7 @@ $produk2 = new Game("Uncharted", "Neil Druckman", "Sony Computer", 2500000, 50,)
 echo $produk1->getInfoProduk();
 echo "<br>";
 echo $produk2->getInfoProduk();
+echo "<hr>";
+
+$produk2->setDiskon(80);
+echo $produk2->getHarga();
